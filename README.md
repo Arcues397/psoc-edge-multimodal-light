@@ -1,100 +1,221 @@
-# PSoC Edge Multimodal Smart Lighting System
+# AI赋能老人陪护智能照明系统
+AI-Empowered Smart Eldercare Lighting System based on PSoC Edge
 
-A multimodal edge AI smart lighting system based on PSoC Edge E84 and RT-Thread, integrating local keyword spotting, ambient sensing, adaptive lighting control, Wi-Fi connectivity, and Web-based visualization.
+An edge-AI multimodal smart lighting system designed for elderly care scenarios, built on **PSoC Edge E84** and **RT-Thread**, integrating local AI inference, environmental sensing, voice interaction, and cloud connectivity.
 
 ---
 
-## 1. Project Overview
+# 1. Project Background
 
-This project aims to build a multimodal on-device AI smart lighting terminal based on **PSoC Edge E84** and **RT-Thread**.
+With the rapid growth of the aging population, many elderly people live alone and face safety risks during nighttime activities.
 
-The system combines:
+Traditional lighting devices provide only simple on/off functionality and cannot perceive environmental context or support intelligent interaction.
 
-- PIR-based human presence detection
-- ALS-based ambient light sensing
-- local keyword spotting (KWS)
+This project proposes an **AI-empowered smart lighting terminal** capable of:
+
+- automatic environment perception
+- voice interaction
 - adaptive lighting control
-- Wi-Fi networking
-- Web-based monitoring and configuration
-- local screen-based user interaction
+- cloud-connected monitoring
 
-The goal is to achieve a low-latency, low-power, cloud-independent intelligent lighting system suitable for embedded AI demonstrations and competition projects.
+The system is designed for **elderly care scenarios**, improving safety, usability, and intelligent interaction.
 
 ---
 
-## 2. Project Goals
+# 2. System Features
 
-- Build a stable smart lighting control loop
-- Support local keyword spotting for voice interaction
-- Implement multimodal decision-making based on voice and environment
-- Provide Wi-Fi connectivity and Web-based visualization
-- Improve system usability and engineering completeness
+The system integrates **multimodal sensing + Edge AI + cloud interaction**.
 
----
-
-## 3. Core Features
+Main functions include:
 
 - Human presence detection
 - Ambient light sensing
-- PWM-based adaptive lighting control
-- Multiple lighting modes
-- Local keyword spotting
-- Web-based status visualization
-- Wi-Fi-based parameter configuration
-- Local screen UI display
-- Low-power optimization (planned)
+- Adaptive PWM lighting control
+- Local keyword voice control
+- Multimodal decision making
+- Wi-Fi connectivity
+- Web-based visualization
+- Voice interaction with cloud AI
+- Remote monitoring and configuration
 
 ---
 
-## 4. Hardware Platform
+# 3. Edge AI + Cloud AI Architecture
 
-- **Board**: Edgi-Talk / PSoC Edge E84
-- **MCU**: Cortex-M55 + Cortex-M33
-- **NPU**: Ethos-U55
-- **RTOS**: RT-Thread
-- **Peripherals**:
-  - PIR sensor
-  - ALS / light sensor
-  - microphone
-  - LED / PWM lighting path
-  - Wi-Fi
-  - display
+The system adopts a **hybrid edge-cloud intelligence architecture**.
+
+## Edge AI (Device Side)
+
+Edge AI handles real-time tasks:
+
+- sensor data processing
+- keyword spotting (KWS)
+- multimodal decision logic
+- lighting control
+
+This ensures:
+
+- low latency
+- offline capability
+- low power consumption
+
+## Cloud AI (API)
+
+Cloud AI provides advanced interaction:
+
+- conversational voice interaction
+- information query
+- elderly assistance reminders
+
+This architecture balances **real-time control and intelligent interaction**.
 
 ---
 
-## 5. Software Stack
+# 4. Hardware Platform
 
-- RT-Thread Studio
-- Edgi-Talk BSP
-- RT-Thread RTOS
-- local KWS inference pipeline
-- Web dashboard / local server
-- optional model tools:
-  - PyTorch
-  - ONNX
-  - TFLite / TFLM
+## Development Board
+
+- Edgi-Talk / PSoC Edge E84
+
+## Processor Architecture
+
+- Cortex-M55  
+- Cortex-M33  
+- Ethos-U55 NPU  
+
+## Sensors
+
+- PIR human detection  
+- ambient light sensor (ALS)  
+- microphone  
+
+## Actuators
+
+- PWM LED lighting system  
+
+## Connectivity
+
+- Wi-Fi networking  
+
+## User Interface
+
+- Web dashboard  
+- local display  
 
 ---
 
-## 6. System Architecture
+# 5. Software Stack
 
-```text
+## Operating System
+
+- RT-Thread RTOS  
+
+## Development Environment
+
+- RT-Thread Studio  
+
+## AI Pipeline
+
+- audio preprocessing  
+- MFCC feature extraction  
+- keyword spotting inference  
+
+## Optional training tools
+
+- PyTorch  
+- ONNX  
+- TensorFlow Lite Micro  
+
+## Networking
+
+- RT-Thread networking stack  
+- Web UI dashboard  
+
+---
+
+# 6. System Architecture
+
+```
 Sensors
  ├── PIR
  ├── ALS
  └── Microphone
         ↓
-Feature Processing
+Edge AI Processing
  ├── Filtering
- ├── Audio preprocessing
- └── Sensor normalization
+ ├── Audio feature extraction
+ ├── Keyword spotting
+ └── Multimodal fusion
         ↓
-Decision Layer
- ├── Rule-based state machine
- ├── Keyword spotting inference
- └── Multimodal fusion logic
+Decision Engine
+ ├── Lighting control logic
+ ├── Voice command handling
+ └── Scene management
         ↓
 Execution Layer
  ├── PWM lighting control
- ├── Local UI display
- └── Web monitoring / configuration
+ ├── Display interface
+ └── Web monitoring
+        ↓
+Cloud AI (Optional)
+ └── Conversational interaction
+```
+
+---
+
+# 7. Repository Structure
+
+```
+psoc-edge-multimodal-light
+│
+├─ docs
+│  ├─ project_proposal
+│  ├─ system_architecture
+│  └─ design_documents
+│
+├─ hardware
+│  ├─ wiring
+│  ├─ schematics
+│  └─ enclosure_design
+│
+├─ firmware
+│  ├─ rtthread_project
+│  ├─ drivers
+│  └─ application
+│
+├─ ai
+│  ├─ dataset
+│  ├─ training
+│  └─ kws_model
+│
+├─ web
+│  └─ dashboard
+│
+└─ README.md
+```
+
+---
+
+# 8. Project Highlights
+
+- Edge AI multimodal perception
+- Hybrid edge-cloud intelligence
+- Low-power embedded AI
+- Real-time lighting control
+- Smart elderly care scenario
+- Full stack embedded system design
+
+---
+
+# 9. Target Application
+
+- elderly care smart homes
+- intelligent bedside lighting
+- AIoT smart lighting terminals
+- embedded AI education and competitions
+
+---
+
+# 10. License
+
+MIT License
