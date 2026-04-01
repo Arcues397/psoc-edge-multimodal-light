@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 20px;
+    color: #222;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.item {
+    background: #eef3f8;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #4b89dc;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+input,
+select {
+    padding: 8px;
+    width: 180px;
+    margin-left: 8px;
+    border: 1px solid #c8d2dc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.settings-row {
+    margin-bottom: 12px;
+}
+
+.status.online {
+    color: green;
+    font-weight: bold;
+}
+
+.status.offline {
+    color: red;
+    font-weight: bold;
+}
+
+audio {
+    display: block;
+    margin-top: 12px;
+    width: 100%;
+}
+
+#messageBox {
+    font-weight: bold;
+}
+
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    input,
+    select {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 6px;
+    }
+
+    .settings-row label {
+        display: block;
+    }
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>智能照明控制面板</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>智能照明控制面板</h1>
+
+    <div class="card">
+      <h2>设备状态</h2>
+      <p>设备状态：<span class="status online" id="online">在线</span></p>
+      <p>Wi-Fi 状态：<span id="wifi">已连接</span></p>
+      <p>最后更新时间：<span id="lastUpdate">--</span></p>
+    </div>
+
+    <div class="card" id="messageCard">
+      <h2>操作提示</h2>
+      <p id="messageBox">系统已启动，等待操作。</p>
+    </div>
+
+    <div class="card grid">
+      <div class="item">当前模式：<span id="mode">阅读模式</span></div>
+      <div class="item">当前功耗：<span id="power">3.2 W</span></div>
+      <div class="item">当前亮度：<span id="brightness">78 %</span></div>
+      <div class="item">电池电量：<span id="battery">86 %</span></div>
+    </div>
+
+    <div class="card">
+      <h2>模式控制</h2>
+      <div class="button-row">
+        <button onclick="setMode('auto')">自动模式</button>
+        <button onclick="setMode('read')">阅读模式</button>
+        <button onclick="setMode('night')">夜灯模式</button>
+        <button onclick="setMode('save')">节能模式</button>
+        <button onclick="lightOn()">手动开灯</button>
+        <button onclick="lightOff()">手动关灯</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>实时数据</h2>
+      <p>人体状态：<span id="human">有人</span></p>
+      <p>环境光：<span id="lux">126 lux</span></p>
+      <p>温度：<span id="temp">24.8 ℃</span></p>
+      <p>湿度：<span id="humidity">51 %</span></p>
+      <p>IMU：<span id="imu">静止</span></p>
+      <p>AI状态：<span id="ai">检测到阅读场景</span></p>
+    </div>
+
+    <div class="card">
+      <h2>功耗与运行信息</h2>
+      <p>当前功耗：<span id="powerDetail">3.2 W</span></p>
+      <p>今日运行时长：<span id="runtime">2.4 h</span></p>
+      <p>累计节能估算：<span id="energySaved">0.18 kWh</span></p>
+    </div>
+
+    <div class="card">
+      <h2>多场景语音录入</h2>
+
+      <div class="settings-row">
+        <label for="voiceScene">选择场景：</label>
+        <select id="voiceScene">
+          <option value="welcome">欢迎回家</option>
+          <option value="leave">离开提醒</option>
+          <option value="night">夜间模式提示</option>
+          <option value="read">阅读模式提示</option>
+          <option value="alert">异常报警</option>
+          <option value="custom1">自定义1</option>
+          <option value="custom2">自定义2</option>
+        </select>
+      </div>
+
+      <div class="button-row">
+        <button onclick="startRecording()">开始录音</button>
+        <button onclick="stopRecording()">停止录音</button>
+        <button onclick="playPreview()">试听</button>
+        <button onclick="uploadVoice()">上传当前场景语音</button>
+      </div>
+
+      <audio id="audioPreview" controls></audio>
+      <p>当前状态：<span id="voiceStatus">未录音</span></p>
+      <p>当前场景：<span id="sceneLabel">欢迎回家</span></p>
+    </div>
+
+    <div class="card">
+      <h2>已保存场景语音播放</h2>
+      <div class="button-row">
+        <button onclick="playSceneVoice('welcome')">播放欢迎语</button>
+        <button onclick="playSceneVoice('leave')">播放离开提醒</button>
+        <button onclick="playSceneVoice('night')">播放夜间提示</button>
+        <button onclick="playSceneVoice('read')">播放阅读提示</button>
+        <button onclick="playSceneVoice('alert')">播放报警语</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>参数设置</h2>
+      <div class="settings-row">
+        <label for="threshold">亮灯阈值：</label>
+        <input id="threshold" type="number" value="120" />
+      </div>
+
+      <div class="settings-row">
+        <label for="delay">熄灯延时（秒）：</label>
+        <input id="delay" type="number" value="30" />
+      </div>
+
+      <div class="settings-row">
+        <label for="volume">音量（%）：</label>
+        <input id="volume" type="number" value="70" />
+      </div>
+
+      <button onclick="saveSettings()">保存设置</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
