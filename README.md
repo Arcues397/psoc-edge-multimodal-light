@@ -1,42 +1,31 @@
-# AI赋能老人陪护智能照明系统
-AI-Empowered Smart Eldercare Lighting System based on PSoC Edge
+# AI-Empowered Smart Eldercare Lighting System based on PSoC Edge
+**AI赋能老人陪护智能照明系统**
 
-An edge-AI multimodal smart lighting system designed for elderly care scenarios, built on **PSoC Edge E84** and **RT-Thread**, integrating local AI inference, environmental sensing, voice interaction, and cloud connectivity.
+*An edge-AI multimodal smart lighting terminal integrating Edge AI perception and cloud voice interaction for elderly care scenarios.*
 
 ---
 
 # 1. Project Background
 
-With the rapid growth of the aging population, many elderly people live alone and face safety risks during nighttime activities.
+With the deepening aging population, the number of elderly individuals living alone continues to rise. Due to declining physical functions and lack of companionship, issues such as **nighttime mobility difficulties, high fall risks, and emergency assistance challenges** are becoming increasingly prominent.
 
-Traditional lighting devices provide only simple on/off functionality and cannot perceive environmental context or support intelligent interaction.
+Traditional lighting devices offer only basic on/off functionality, lacking environmental perception and intelligent interaction capabilities to meet the demands of smart elderly care.
 
-This project proposes an **AI-empowered smart lighting terminal** capable of:
-
-- automatic environment perception
-- voice interaction
-- adaptive lighting control
-- cloud-connected monitoring
-
-The system is designed for **elderly care scenarios**, improving safety, usability, and intelligent interaction.
+Leveraging advances in **Embedded AI** and **Edge Computing**, this project designs an **AI-empowered smart lighting system** based on **PSoC Edge**. The system achieves intelligent lighting control, voice companionship, and remote management through **multimodal perception, on-device AI inference, and cloud AI interaction**.
 
 ---
 
-# 2. System Features
+# 2. System Features & Objectives
 
-The system integrates **multimodal sensing + Edge AI + cloud interaction**.
+The system integrates **Multimodal Sensing + Edge AI + Cloud Interaction**.
 
-Main functions include:
-
-- Human presence detection
-- Ambient light sensing
-- Adaptive PWM lighting control
-- Local keyword voice control
-- Multimodal decision making
-- Wi-Fi connectivity
-- Web-based visualization
-- Voice interaction with cloud AI
-- Remote monitoring and configuration
+| Category | Features |
+| :--- | :--- |
+| **Sensing & Control** | Automatic environment perception & adaptive lighting adjustment |
+| **Edge AI** | Local keyword spotting (3 keywords), Multimodal scene decision |
+| **Cloud AI** | Conversational AI interaction, Voice companionship, Info query |
+| **Visualization** | Dual display via Local Screen & Web Dashboard |
+| **Performance** | Low-power operation, Offline/Online hybrid capability |
 
 ---
 
@@ -44,175 +33,124 @@ Main functions include:
 
 The system adopts a **hybrid edge-cloud intelligence architecture**.
 
-## Edge AI (Device Side)
+### Edge AI (Device Side)
+Responsible for **low-latency, offline-capable** real-time tasks:
+- **Sensing Layer**: PIR human detection, ALS ambient light, Microphone array.
+- **Feature Extraction**: Audio filtering, MFCC feature extraction (DSP/Helium accelerated).
+- **Inference**: Keyword Spotting (KWS) running on **Ethos-U55 NPU**.
+- **Decision**: State machine logic, Scene fusion control.
 
-Edge AI handles real-time tasks:
+### Cloud AI (API Service)
+Responsible for **complex semantic understanding and companionship**:
+- Natural Language Processing (NLP)
+- Weather queries / Medication reminders
+- Casual conversation / Companionship dialogue
 
-- sensor data processing
-- keyword spotting (KWS)
-- multimodal decision logic
-- lighting control
-
-This ensures:
-
-- low latency
-- offline capability
-- low power consumption
-
-## Cloud AI (API)
-
-Cloud AI provides advanced interaction:
-
-- conversational voice interaction
-- information query
-- elderly assistance reminders
-
-This architecture balances **real-time control and intelligent interaction**.
+### Task Routing Mechanism
+- **Control Commands** (e.g., "Lights On") $\rightarrow$ Processed by **Local Edge AI**.
+- **Dialogue Queries** (e.g., "What's the weather?") $\rightarrow$ Routed to **Cloud AI API**.
 
 ---
 
 # 4. Hardware Platform
 
-## Development Board
-
-- Edgi-Talk / PSoC Edge E84
-
-## Processor Architecture
-
-- Cortex-M55  
-- Cortex-M33  
-- Ethos-U55 NPU  
-
-## Sensors
-
-- PIR human detection  
-- ambient light sensor (ALS)  
-- microphone  
-
-## Actuators
-
-- PWM LED lighting system  
-
-## Connectivity
-
-- Wi-Fi networking  
-
-## User Interface
-
-- Web dashboard  
-- local display  
+- **Development Board**: PSoC Edge E84 (Edgi-Talk compatible)
+- **Processor Architecture**:
+    - **Cortex-M55** (Main control / DSP Helium for MFCC)
+    - **Cortex-M33** (System management)
+    - **Ethos-U55 NPU** (AI acceleration)
+- **Sensors**: PIR, ALS, Microphone
+- **Actuators**: PWM LED Lighting System
+- **Connectivity**: Wi-Fi
+- **User Interface**: Local Display + Web Dashboard
 
 ---
 
-# 5. Software Stack
+# 5. Software Stack & Heterogeneous Computing
 
-## Operating System
+### Operating System
+- RT-Thread RTOS
 
-- RT-Thread RTOS  
+### Heterogeneous Core Task Assignment
+| Hardware Unit | Assigned Tasks |
+| :--- | :--- |
+| **Cortex-M33 / M55 (CPU)** | Peripheral drivers, System scheduling, Lighting state machine, Network comms, Decision fusion |
+| **DSP / Helium (M55)** | Audio pre-processing, FFT, MFCC feature extraction |
+| **Ethos-U55 (NPU)** | Keyword Spotting (KWS) model inference |
 
-## Development Environment
-
-- RT-Thread Studio  
-
-## AI Pipeline
-
-- audio preprocessing  
-- MFCC feature extraction  
-- keyword spotting inference  
-
-## Optional training tools
-
-- PyTorch  
-- ONNX  
-- TensorFlow Lite Micro  
-
-## Networking
-
-- RT-Thread networking stack  
-- Web UI dashboard  
+### Development & AI Pipeline
+- **IDE**: RT-Thread Studio
+- **AI Workflow**: PyTorch / TensorFlow $\rightarrow$ ONNX $\rightarrow$ TensorFlow Lite Micro $\rightarrow$ NPU Deployment
+- **Networking**: RT-Thread SAL layer, Web UI dashboard
 
 ---
 
-# 6. System Architecture
+# 6. System Architecture Diagram
 
 ```
-Sensors
- ├── PIR
- ├── ALS
- └── Microphone
-        ↓
-Edge AI Processing
- ├── Filtering
- ├── Audio feature extraction
- ├── Keyword spotting
- └── Multimodal fusion
-        ↓
-Decision Engine
- ├── Lighting control logic
- ├── Voice command handling
- └── Scene management
-        ↓
-Execution Layer
- ├── PWM lighting control
- ├── Display interface
- └── Web monitoring
-        ↓
-Cloud AI (Optional)
- └── Conversational interaction
+┌─────────────────────────────────────────────────────────────────┐
+│                        CLOUD AI LAYER (Optional)                │
+│          [Conversational API: Weather / Reminders / Chat]        │
+└───────────────────────────────┬─────────────────────────────────┘
+                                │ Wi-Fi (Task Routing)
+┌───────────────────────────────▼─────────────────────────────────┐
+│                        EDGE AI PROCESSING (Local)               │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────────────┐  │
+│  │   Sensors    │  │   DSP/Helium │  │   NPU (Ethos-U55)    │  │
+│  │ PIR/ALS/Mic  │──│   MFCC/FFT   │──│   KWS Inference       │  │
+│  └──────────────┘  └──────────────┘  └──────────┬───────────┘  │
+│                                                  │               │
+│                      ┌───────────────────────────▼───────────┐  │
+│                      │       Decision Engine (CPU)           │  │
+│                      │   Multimodal Fusion + State Machine   │  │
+│                      └───────────────┬───────────────────────┘  │
+│                                      │                           │
+│  ┌──────────────────┐  ┌────────────┴───────┐  ┌─────────────┐  │
+│  │   Execution      │  │   Connectivity      │  │   Display   │  │
+│  │ PWM Light Control│  │   Web Dashboard     │  │ Local UI    │  │
+│  └──────────────────┘  └────────────────────┘  └─────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-# 7. Repository Structure
+# 7. Project Highlights & Innovation
 
-```
-psoc-edge-multimodal-light
-│
-├─ docs
-│  ├─ project_proposal
-│  ├─ system_architecture
-│  └─ design_documents
-│
-├─ hardware
-│  ├─ wiring
-│  ├─ schematics
-│  └─ enclosure_design
-│
-├─ firmware
-│  ├─ rtthread_project
-│  ├─ drivers
-│  └─ application
-│
-├─ ai
-│  ├─ dataset
-│  ├─ training
-│  └─ kws_model
-│
-├─ web
-│  └─ dashboard
-│
-└─ README.md
-```
+- **Edge-Cloud Collaborative AI**: Balances low-latency local control with rich cloud intelligence.
+- **Elderly-Centric Design**: Focuses on nighttime safety and ease of use for seniors.
+- **Multimodal Perception**: Fuses PIR, ALS, and Voice for accurate context awareness.
+- **Low-Power Embedded AI**: Real-time AI decision-making on resource-constrained hardware.
+- **Dual Interaction Modes**: Supports both hands-free voice control and remote web management.
+- **Full Stack Integration**: Complete hardware, firmware, AI model, and web dashboard implementation.
 
 ---
 
-# 8. Project Highlights
+# 8. Target Application & Expected Outcomes
 
-- Edge AI multimodal perception
-- Hybrid edge-cloud intelligence
-- Low-power embedded AI
-- Real-time lighting control
-- Smart elderly care scenario
-- Full stack embedded system design
-
----
-
-# 9. Target Application
-
-- elderly care smart homes
-- intelligent bedside lighting
+### Target Scenarios
+- Elderly care smart homes
+- Intelligent bedside/nightstand lighting
 - AIoT smart lighting terminals
-- embedded AI education and competitions
+- Embedded AI education & competition demonstrations
+
+### Expected Deliverables
+1.  **Prototype System**: Functional smart eldercare lighting terminal.
+2.  **AI Model**: On-device KWS model optimized for PSoC Edge.
+3.  **Algorithm**: Multimodal fusion control algorithm.
+4.  **Software**: Web visualization dashboard with remote config.
+5.  **Documentation**: Complete system design docs, project video, and presentation materials.
+
+---
+
+# 9. Development Roadmap
+
+| Phase | Month | Key Tasks |
+| :--- | :--- | :--- |
+| **Phase 1** | March | Environment setup, PWM LED dimming, PIR/ALS data acquisition, Basic control loop. |
+| **Phase 2** | April | Audio capture implementation, MFCC extraction (Helium), KWS model training. |
+| **Phase 3** | May | Multimodal fusion logic, Wi-Fi stack integration, Web dashboard UI development. |
+| **Phase 4** | June | Cloud API voice interaction integration, System stability testing, Enclosure prototyping. |
+| **Phase 5** | Early July | Final documentation, Demo video production, Presentation preparation. |
 
 ---
 
